@@ -1,0 +1,199 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>CollegeTips Photo Gallery</title>
+  <style>
+    body {
+      font-family: 'Segoe UI', sans-serif;
+      margin: 0;
+      background-color: #f7f7f7;
+      color: #333;
+    }
+
+    h1 {
+      text-align: center;
+      padding: 20px;
+      font-size: 2rem;
+      background-color: #333;
+      color: white;
+    }
+
+    .filter-buttons {
+      text-align: center;
+      margin: 20px 0;
+    }
+
+    .filter-buttons button {
+      padding: 10px 20px;
+      margin: 5px;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+      background-color: #007BFF;
+      color: white;
+      font-size: 16px;
+      transition: background-color 0.3s;
+    }
+
+    .filter-buttons button:hover {
+      background-color: #0056b3;
+    }
+
+    .gallery {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+      gap: 15px;
+      padding: 20px;
+    }
+
+    .gallery-item {
+      position: relative;
+      overflow: hidden;
+      border-radius: 10px;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.2);
+      cursor: pointer;
+    }
+
+    .gallery-item img {
+      width: 100%;
+      height: auto;
+      display: block;
+      transition: transform 0.3s;
+    }
+
+    .gallery-item:hover img {
+      transform: scale(1.1);
+    }
+
+    .caption {
+      position: absolute;
+      bottom: 0;
+      background: rgba(0,0,0,0.6);
+      color: #fff;
+      width: 100%;
+      padding: 10px;
+      text-align: center;
+      font-weight: bold;
+    }
+
+    .fullscreen {
+      display: none;
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100vw;
+      height: 100vh;
+      background: rgba(0, 0, 0, 0.9);
+      justify-content: center;
+      align-items: center;
+      z-index: 9999;
+    }
+
+    .fullscreen img {
+      max-width: 90vw;
+      max-height: 90vh;
+    }
+
+    .video-section {
+      padding: 20px;
+      text-align: center;
+    }
+
+    .video-section h2 {
+      font-size: 1.8rem;
+      margin-bottom: 20px;
+    }
+
+    .video-section iframe {
+      width: 90%;
+      max-width: 560px;
+      height: 315px;
+      margin: 20px auto;
+      border-radius: 10px;
+    }
+
+    @media (max-width: 600px) {
+      .caption {
+        font-size: 14px;
+      }
+
+      .filter-buttons button {
+        font-size: 14px;
+        padding: 8px 12px;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <h1>CollegeTips Photo Gallery</h1>
+
+  <div class="filter-buttons">
+    <button onclick="filterGallery('all')">All</button>
+    <button onclick="filterGallery('team')">Team Vibes 🤝</button>
+    <button onclick="filterGallery('creative')">Creative Campaigns 🎨</button>
+    <button onclick="filterGallery('fun')">Work Hard, Play Hard 🥳</button>
+    <button onclick="filterGallery('bts')">Behind-The-Scenes 🎥</button>
+  </div>
+
+  <div class="gallery" id="gallery">
+    <div class="gallery-item team">
+      <img src="/Gallery/about-header-image1.webp" alt="Team Vibes" onclick="openFullscreen(this)">
+      <div class="caption">Team Vibes</div>
+    </div>
+
+    <div class="gallery-item creative">
+      <img src="Gallery/about-header-image2.webp" alt="Creative Campaigns" onclick="openFullscreen(this)">
+      <div class="caption">Creative Campaigns</div>
+    </div>
+
+    <div class="gallery-item fun">
+      <img src="Gallery/about-header-image3.webp" alt="Fun at Work" onclick="openFullscreen(this)">
+      <div class="caption">Work Hard, Play Hard</div>
+    </div>
+
+    <div class="gallery-item bts">
+      <img src="Gallery/about-header-image4.webp" alt="Behind The Scenes" onclick="openFullscreen(this)">
+      <div class="caption">Behind The Scenes</div>
+    </div>
+  </div>
+
+  <div class="fullscreen" id="fullscreen" onclick="closeFullscreen()">
+    <img id="fullscreenImg" src="" alt="Fullscreen View">
+  </div>
+
+  <div class="video-section">
+    <h2>🎥 Featured Videos</h2>
+    <iframe src="https://www.youtube.com/embed/F4_0aydpHfU" title="Life @ CollegeTips" allowfullscreen></iframe>
+    <iframe src="https://www.youtube.com/embed/Kw3Afvgzbg4" title="Internship @ CollegeTips" allowfullscreen></iframe>
+  </div>
+
+  <script>
+    function filterGallery(category) {
+      const items = document.querySelectorAll('.gallery-item');
+      items.forEach(item => {
+        if (category === 'all' || item.classList.contains(category)) {
+          item.style.display = 'block';
+        } else {
+          item.style.display = 'none';
+        }
+      });
+    }
+
+    function openFullscreen(img) {
+      const fullscreen = document.getElementById('fullscreen');
+      const fullscreenImg = document.getElementById('fullscreenImg');
+      fullscreen.style.display = 'flex';
+      fullscreenImg.src = img.src;
+    }
+
+    function closeFullscreen() {
+      const fullscreen = document.getElementById('fullscreen');
+      fullscreen.style.display = 'none';
+    }
+  </script>
+
+</body>
+</html>
